@@ -52,7 +52,7 @@ class DBController{
         }
     }
 
-    async deleteNote(title, text, color)
+    async deleteNote(id)
     {
         try{
             await Note.findByIdAndDelete(id);           
