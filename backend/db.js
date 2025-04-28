@@ -52,10 +52,22 @@ class DBController{
         }
     }
 
-    async deleteNote(id)
+    async deleteNote(title, text, color)
     {
         try{
             await Note.findByIdAndDelete(id);           
+        }
+        catch(e){
+            throw e;
+        }
+    }
+
+    async updateNote(id, title, text)
+    {
+        try{
+            await Note.updateOne({_id: id}, {title: title, text: text},{
+                new: false
+              });           
         }
         catch(e){
             throw e;
