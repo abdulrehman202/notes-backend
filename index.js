@@ -42,6 +42,17 @@ app.post('/insert', async (req, res) => {
    }
 })
 
+app.delete('/remove', async (req, res) => {
+   try {
+      await dbConn.deleteNote(req.body.id);
+      res.send({ code: 200, msg: 'OK' });
+   }
+   catch (e) {
+      res.send({ code: 404, msg: 'Error!' });
+      
+   }
+})
+
 app.listen(port, () => {
    console.log(`Example app listening on port ${port}`)
 })

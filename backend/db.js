@@ -51,6 +51,16 @@ class DBController{
             throw e;
         }
     }
+
+    async deleteNote(id)
+    {
+        try{
+            await Note.findByIdAndDelete(id);           
+        }
+        catch(e){
+            throw e;
+        }
+    }
 }
 
 module.exports = {DBController}
