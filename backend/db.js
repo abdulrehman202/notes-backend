@@ -37,8 +37,9 @@ class DBController {
     async getAllNotes(user) {
         let listNote = [];
         try {
-            var docs = await Note.find({ user: user });
-            docs.forEach((note) => listNote.push({ objId: note._id, title: note.title, text: note.text, color: note.color }));
+            var docs = await Note.find({ user: user }).exec();
+
+            docs.forEach((note) => listNote.push({ objId: note._id, title: note._doc.title, text: note._doc.text, color: note._doc.color }));
 
             return listNote;
         }
@@ -49,7 +50,7 @@ class DBController {
 
     async insertNote(title, text, color, user) {
         try {
-            await Note.create({ _id: null, user: user, title: title, text: text, color: color });
+            await Note.create({ _id: null, user: user, title: title, text: text, color: color, user:user });
         }
         catch (e) {
             throw e;

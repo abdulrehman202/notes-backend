@@ -20,9 +20,9 @@ app.get('/', async (req, res) => {
    }
 })
 
-app.post('/getAllNotes', async (req, res) => {
+app.get('/getAllNotes/:email', async (req, res) => {
    try {
-      var allNotes = await dbConn.getAllNotes(req.body.email);
+      var allNotes = await dbConn.getAllNotes(req.params.email);
       res.send({ code: 200, msg: allNotes });
    }
    catch (e) {
@@ -33,7 +33,7 @@ app.post('/getAllNotes', async (req, res) => {
 
 app.post('/insert', async (req, res) => {
    try {
-      await dbConn.insertNote(req.body.title, req.body.text, req.body.color);
+      await dbConn.insertNote(req.body.title, req.body.text, req.body.color,req.body.email);
       res.send({ code: 200, msg: 'OK' });
    }
    catch (e) {
