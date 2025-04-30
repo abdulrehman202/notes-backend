@@ -20,9 +20,9 @@ app.get('/', async (req, res) => {
    }
 })
 
-app.get('/getAllNotes', async (req, res) => {
+app.post('/getAllNotes', async (req, res) => {
    try {
-      var allNotes = await dbConn.getAllNotes();
+      var allNotes = await dbConn.getAllNotes(req.body.email);
       res.send({ code: 200, msg: allNotes });
    }
    catch (e) {
@@ -57,6 +57,36 @@ app.put('/update', async (req, res) => {
    try {
       await dbConn.updateNote(req.body.id, req.body.title, req.body.text);
       res.send({ code: 200, msg: 'OK' });
+   }
+   catch (e) {
+      res.send({ code: 404, msg: 'Error!' });
+      
+   }
+})
+
+app.post('/registerUser', async (req, res) => {
+   try {
+      let created =  await dbConn.registerUser(req.body.email, req.body.password);
+
+      if(created){
+      res.send({ code: 200, msg: 'User created!' });}
+
+      else res.send({ code: 404, msg: 'User already exist' });
+   }
+   catch (e) {
+      res.send({ code: 404, msg: 'Error!' });
+      
+   }
+})
+
+app.post('/login', async (req, res) => {
+   try {
+      let created =  await dbConn.authenticateUser(req.body.email, req.body.password);
+
+      if(created){
+      res.send({ code: 200, msg: 'OK' });}
+
+      else res.send({ code: 404, msg: 'Invalid credentials!' });
    }
    catch (e) {
       res.send({ code: 404, msg: 'Error!' });
