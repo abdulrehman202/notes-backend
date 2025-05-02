@@ -39,7 +39,7 @@ class DBController {
         try {
             var docs = await Note.find({ user: user }).exec();
 
-            docs.forEach((note) => listNote.push({ objId: note._id, title: note._doc.title, text: note._doc.text, color: note._doc.color }));
+            docs.forEach((note) => listNote.push({ objId: note._doc._id, title: note._doc.title, text: note._doc.text, color: note._doc.color }));
 
             return listNote;
         }
